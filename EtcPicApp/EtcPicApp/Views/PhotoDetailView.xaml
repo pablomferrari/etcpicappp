@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EtcPicApp.Views.PhotoDetailView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+    xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
+    Title="Picture and Caption"
+    utility1:ViewModelLocator.AutoWireViewModel="True">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding OnSaveChangesCommand}" Text="Save" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="10" BackgroundColor="{StaticResource WindowBackground}">
+        <Image Source="{Binding PhotoCaption.Source}" HeightRequest="300"/>
+        <Label Style="{StaticResource FormLabelStyle}" Text="Material" />
+        <autocomplete:SfAutoComplete
+                        AutoCompleteMode="Suggest"
+                        DataSource="{Binding Captions}"
+                        DropDownCornerRadius="15"
+                        DropDownItemHeight="50"
+                        HeightRequest="50"
+                        ShowSuggestionsOnFocus="true"
+                        Text="{Binding PhotoCaption.Caption}"
+                        TextColor="{StaticResource PrimaryText}"
+                        TextSize="18">
+        </autocomplete:SfAutoComplete>
+        <Label Style="{StaticResource FormLabelStyle}" Text="{Binding PhotoCaption.Caption, Mode=OneWay}" />
+        <Button
+                        x:Name="SaveMaterial"
+                        Command="{Binding OnSaveChangesCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource SubmitButton}"
+                        Text="Add"
+                        VerticalOptions="Start" />
+
+    </StackLayout>
+</ContentPage>

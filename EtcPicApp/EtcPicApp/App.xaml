@@ -6,7 +6,10 @@
     xmlns:converters="clr-namespace:EtcPicApp.Converters;assembly=EtcPicApp">
     <Application.Resources>
         <ResourceDictionary>
-
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="font-icons" />
+                <On Platform="Android" Value="font-icons.ttf#Material Design Icons" />
+            </OnPlatform>
             <OnPlatform x:Key="LargeFontSize" x:TypeArguments="x:Double">
                 <On Platform="iOS" Value="20" />
                 <On Platform="Android, UWP, WinRT, WinPhone" Value="18" />

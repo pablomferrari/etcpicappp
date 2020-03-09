@@ -23,15 +23,8 @@ namespace EtcPicApp.Bootstrap
             builder.RegisterType<MenuViewModel>();
             builder.RegisterType<JobListViewModel>();
             builder.RegisterType<LoginViewModel>();
-            builder.RegisterType<MaterialListViewModel>();
-            builder.RegisterType<MaterialDetailViewModel>();
-            builder.RegisterType<SampleListViewModel>();
-            builder.RegisterType<SampleDetailViewModel>();
-            builder.RegisterType<RoomsViewModel>();
-            builder.RegisterType<DeliveriesViewModel>();
-            builder.RegisterType<HistoryListViewModel>();
-            builder.RegisterType<HistoryDetailViewModel>();
-            builder.RegisterType<ReportViewModel>();
+            builder.RegisterType<PhotoListViewModel>();
+            builder.RegisterType<PhotoDetailViewModel>();
             //General
             builder.RegisterType<GenericRepository>().As<IGenericRepository>();
 
@@ -39,7 +32,6 @@ namespace EtcPicApp.Bootstrap
             builder.RegisterType<ApiService>().As<IApiService>();
             builder.RegisterType<DataService>().As<IDataService>();
             builder.RegisterType<SqlLiteService>().As<ISqlLiteService>();
-            builder.RegisterType<MappingsService>().As<IMappingsService>();
             builder.RegisterType<SynchronizationService>().As<ISynchronizationService>();
 
             //services - general

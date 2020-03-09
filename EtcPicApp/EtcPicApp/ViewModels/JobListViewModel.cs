@@ -9,7 +9,7 @@ using EtcPicApp.Contracts.Services.Data;
 using EtcPicApp.Contracts.Services.General;
 using EtcPicApp.Extensions;
 using EtcPicApp.Models.Jobs;
-using EtcPicApp.Models.Materials;
+using EtcPicApp.Models.PhotoCaption;
 using EtcPicApp.Services.Data;
 using EtcPicApp.ViewModels.Base;
 using Microsoft.AppCenter.Analytics;
@@ -53,9 +53,6 @@ namespace EtcPicApp.ViewModels
 
         public void InitializeMessenger()
         {
-            MessagingCenter.Subscribe<MaterialDetailViewModel, Materials>(this,
-                MessengerConstants.MaterialDetailViewModel_MaterialAdded,
-                (sender, value) => OnMaterialAdded());
             MessagingCenter.Subscribe<DataService, string>(this,
                 MessengerConstants.DataServiceError,
                 (sender, value) => OnDataServiceError(value));
@@ -68,12 +65,12 @@ namespace EtcPicApp.ViewModels
         private async void OnDataServiceError(string value)
         {
             await _dialogService.ShowDialog(
-                "Please get a screenshot of the following. Something went wrong: " + value,
+                "Please get a screen-shot of the following. Something went wrong: " + value,
                 "Error",
                 "OK");
         }
 
-        private async void OnMaterialAdded()
+        private async void OnPhotoAdded()
         {
             await LoadJobs();
         }
@@ -81,17 +78,7 @@ namespace EtcPicApp.ViewModels
         public ICommand JobTappedCommand => new Command<Jobs>(OnJobTapped);
         public ICommand SubmitCommand => new Command(Submit);
 
-        public ICommand HistoryCommand => new Command(async () =>
-        {
-                await _navigationService.NavigateToAsync<HistoryListViewModel>();
-        });
-
-        public ICommand ReportCommand => new Command(async (data) =>
-        {
-            await _navigationService.NavigateToAsync<ReportViewModel>(data);
-        });
-
-
+        
         public ICommand LogOutCommand => new Command(LogOut);
 
         private void LogOut()
@@ -154,13 +141,13 @@ namespace EtcPicApp.ViewModels
 
         private async void OnJobTapped(Jobs selectedJob)
         {
-            await _navigationService.NavigateToAsync<MaterialListViewModel>(selectedJob);
+            await _navigationService.NavigateToAsync<PhotoListViewModel>(selectedJob);
         }
 
         public override async Task InitializeAsync(object data)
         {
             IsBusy = true;
-            await IsFirstTime();
+            // await IsFirstTime();
             await LoadJobs();
             IsBusy = false;
         }
@@ -179,7 +166,6 @@ namespace EtcPicApp.ViewModels
             catch (Exception e)
             {
                 MessagingCenter.Send(this, "Sync errors", "Errors synchronizing data: " + e.Message);
-                //throw;
             }
         }
 

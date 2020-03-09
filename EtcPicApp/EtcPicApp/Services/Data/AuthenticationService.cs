@@ -19,24 +19,6 @@ namespace EtcPicApp.Services.Data
 
         }
 
-        //public async Task<AuthenticationResponse> Register(string firstName, string lastName, string email, string userName, string password)
-        //{
-        //    UriBuilder builder = new UriBuilder(ApiConstants.BaseApiUrl)
-        //    {
-        //        Path = ApiConstants.RegisterEndpoint
-        //    };
-
-        //    AuthenticationRequest authenticationRequest = new AuthenticationRequest()
-        //    {
-        //        Email = email,
-        //        FirstName = firstName,
-        //        LastName = lastName,
-        //        UserName = userName,
-        //        Password = password
-        //    };
-
-        //    return await _genericRepository.PostAsync<AuthenticationRequest, AuthenticationResponse>(builder.ToString(), authenticationRequest);
-        //}
 
         public bool IsUserAuthenticated()
         {
@@ -45,6 +27,16 @@ namespace EtcPicApp.Services.Data
 
         public async Task<AuthenticationResponse> Authenticate(string userName, string password)
         {
+#if DEBUG
+            return new AuthenticationResponse
+            {
+                IsAuthenticated = true,
+                Employee = new Employee
+                {
+                    Name = "Test Employee"
+                }
+            };
+#endif
             UriBuilder builder = new UriBuilder(ApiConstants.BaseApiUrl)
             {
                 Path = ApiConstants.AuthenticateEtcLogin

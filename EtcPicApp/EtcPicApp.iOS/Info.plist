@@ -22,11 +22,11 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>EtlApp</string>
+	<string>ETC PicApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.etl.etlapp</string>
+	<string>com.etc.picapp</string>
 	<key>CFBundleVersion</key>
-	<string>3.2.0</string>
+	<string>1.0.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -34,7 +34,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/logo.appiconset</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3</string>
+	<string>1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -51,5 +51,17 @@
 	</dict>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
+  <key>NSCameraUsageDescription</key>
+  <string>This app needs access to the camera to take photos.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This app needs access to photos.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>This app needs access to microphone.</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>This app needs access to the photo gallery.</string>
 </dict>
+  <key>UIAppFonts</key>
+  <array>
+    <string>font-icons.ttf</string>
+  </array>
 </plist>

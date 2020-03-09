@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Name="Jobs"
     x:Class="EtcPicApp.Views.JobListView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
     xmlns:behaviors="clr-namespace:EtcPicApp.Behaviors;assembly=EtcPicApp"
+    xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
+    x:Name="Jobs"
     Title="ETL App 3.2.0"
     utility1:ViewModelLocator.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding SubmitCommand}" Text="Sync Data" Order="Primary" />
-        <ToolbarItem Command="{Binding HistoryCommand}" Text="Sync Data History" Order="Secondary"/>
+        <ToolbarItem
+            Command="{Binding SubmitCommand}"
+            Order="Primary"
+            Text="Sync Data" />
     </ContentPage.ToolbarItems>
     <StackLayout HorizontalOptions="FillAndExpand">
         <Grid Padding="10" BackgroundColor="{StaticResource PrimaryLight}">
@@ -54,10 +56,10 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Command="{Binding Path=BindingContext.ReportCommand, Source={x:Reference Name=Jobs}}"
-                                      CommandParameter="{Binding .}"
-                                      Text="Report">
-                            </MenuItem>
+                            <MenuItem
+                                Command="{Binding Path=BindingContext.ReportCommand, Source={x:Reference Name=Jobs}}"
+                                CommandParameter="{Binding .}"
+                                Text="Report" />
                         </ViewCell.ContextActions>
                         <Grid Padding="10">
                             <Grid.RowDefinitions>

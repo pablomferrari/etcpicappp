@@ -22,16 +22,6 @@ namespace EtcPicApp.Behaviors
         {
             var entry = (Entry)sender;
 
-            // if Entry text is longer then valid length
-            //if (entry.Text.Length > this.MaxLength)
-            //{
-            //    string entryText = entry.Text;
-
-            //    entryText = entryText.Remove(entryText.Length - 1); // remove last char
-
-            //    entry.Text = entryText;
-            //}
-
             if (entry.Text.Length < MinLength)
             {
                 entry.Text = 0.ToString();

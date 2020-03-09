@@ -13,63 +13,93 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Materials\**" />
+    <Compile Remove="Models\Samples\**" />
+    <EmbeddedResource Remove="Models\Materials\**" />
+    <EmbeddedResource Remove="Models\Samples\**" />
+    <None Remove="Models\Materials\**" />
+    <None Remove="Models\Samples\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Annotations1.cs" />
+    <Compile Remove="Contracts\Services\Data\IMappingsService.cs" />
+    <Compile Remove="Models\General\DeliveryRequest.cs" />
+    <Compile Remove="Models\General\PlmInstructionsHelper.cs" />
+    <Compile Remove="Models\General\SurveyData.cs" />
+    <Compile Remove="Models\General\TurnAroundHelper.cs" />
+    <Compile Remove="Models\Jobs\JobStatus.cs" />
+    <Compile Remove="Models\Jobs\PlmInstructions.cs" />
+    <Compile Remove="Models\Sql\DeliveryRequestTable.cs" />
+    <Compile Remove="Models\Sql\MappingsTable.cs" />
+    <Compile Remove="Models\Sql\MaterialsTable.cs" />
+    <Compile Remove="Models\Sql\SamplesTable.cs" />
+    <Compile Remove="Services\Data\MappingsService.cs" />
     <Compile Remove="ViewModels\AboutViewModel.cs" />
     <Compile Remove="ViewModels\BaseViewModel.cs" />
+    <Compile Remove="ViewModels\DeliveriesViewModel.cs" />
+    <Compile Remove="ViewModels\HistoryDetailViewModel.cs" />
+    <Compile Remove="ViewModels\HistoryListViewModel.cs" />
     <Compile Remove="ViewModels\ItemDetailViewModel.cs" />
     <Compile Remove="ViewModels\ItemsViewModel.cs" />
+    <Compile Remove="ViewModels\ReportViewModel.cs" />
+    <Compile Remove="ViewModels\RoomsViewModel.cs" />
+    <Compile Remove="ViewModels\SampleDetailViewModel.cs" />
+    <Compile Remove="ViewModels\SampleListViewModel.cs" />
     <Compile Remove="Views\AboutPage.xaml.cs" />
+    <Compile Remove="Views\DeliveriesView.xaml.cs" />
+    <Compile Remove="Views\HistoryDetailView.xaml.cs" />
+    <Compile Remove="Views\HistoryListView.xaml.cs" />
     <Compile Remove="Views\ItemDetailPage.xaml.cs" />
     <Compile Remove="Views\ItemsPage.xaml.cs" />
     <Compile Remove="Views\NewItemPage.xaml.cs" />
+    <Compile Remove="Views\ReportView.xaml.cs" />
+    <Compile Remove="Views\RoomsView.xaml.cs" />
+    <Compile Remove="Views\SampleDetailView.xaml.cs" />
+    <Compile Remove="Views\SampleListView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Views\AboutPage.xaml" />
+    <EmbeddedResource Remove="Views\DeliveriesView.xaml" />
+    <EmbeddedResource Remove="Views\HistoryDetailView.xaml" />
+    <EmbeddedResource Remove="Views\HistoryListView.xaml" />
     <EmbeddedResource Remove="Views\ItemDetailPage.xaml" />
     <EmbeddedResource Remove="Views\ItemsPage.xaml" />
     <EmbeddedResource Remove="Views\NewItemPage.xaml" />
+    <EmbeddedResource Remove="Views\ReportView.xaml" />
+    <EmbeddedResource Remove="Views\RoomsView.xaml" />
+    <EmbeddedResource Remove="Views\SampleDetailView.xaml" />
+    <EmbeddedResource Remove="Views\SampleListView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.35" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
     <PackageReference Include="akavache" Version="6.5.9" />
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.6.4" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.4" />
-    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="2.6.4" />
-    <PackageReference Include="Microsoft.AppCenter.Push" Version="2.6.4" />
-    <PackageReference Include="Polly" Version="7.1.0" />
+    <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AppCenter.Push" Version="3.0.0" />
+    <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     <PackageReference Include="Syncfusion.Licensing" Version="16.2.0.50" />
+    <PackageReference Include="Syncfusion.Xamarin.Pdf" Version="16.2.0.50" />
     <PackageReference Include="Syncfusion.Xamarin.SfAutoComplete" Version="16.2.0.50" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.3.0.991250" />  
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\HistoryListView.xaml.cs">
-      <DependentUpon>HistoryListView.xaml</DependentUpon>
+    <Compile Update="Views\PhotoDetailView.xaml.cs">
+      <DependentUpon>PhotoDetailView.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\DeliveriesView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\HistoryDetailView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\HistoryListView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\ReportView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\RoomsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Compile Update="Views\PhotoListView.xaml.cs">
+      <DependentUpon>PhotoListView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

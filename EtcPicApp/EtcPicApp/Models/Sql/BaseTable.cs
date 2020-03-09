@@ -4,7 +4,7 @@ namespace EtcPicApp.Models.Sql
 {
     public abstract class BaseTable
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace EtcPicApp
             InitializeNavigation().ConfigureAwait(false);
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("OTcwOUAzMTM2MmUzMjJlMzBCRkpoaGVKelJVTGxXNUxsNG16VnFWamIvUmp2YitSVi9hM0VuVDdGQy9JPQ==");
 		    BlobCache.ApplicationName = "ETC_ETL_Sample_Submission";
-			AppCenter.Start("android=afd9a230-9c69-425e-9897-c08228c6bcf3;ios=fc691dca-2251-4d46-b990-ba2398ac763e;", 
+			AppCenter.Start("android=0a4e5c88-3ad2-405b-8ace-b3e6ce240acc;ios=ab14d4ae-8b58-4b34-8480-2031ab6da8ff", 
                 typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Push));
         }
 

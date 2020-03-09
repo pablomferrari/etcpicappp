@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EtcPicApp.Extensions;
-using EtcPicApp.Models.General;
+using EtcPicApp.Models.Captions;
 using EtcPicApp.Models.Jobs;
-using EtcPicApp.Models.Materials;
-using EtcPicApp.Models.Samples;
+using EtcPicApp.Models.PhotoCaption;
 using EtcPicApp.Models.Sql;
 using SQLite;
 using Xamarin.Forms;
@@ -24,10 +23,8 @@ namespace EtcPicApp.Data
                 new Type[]
                 {
                     new JobsTable().GetType(),
-                    new MaterialsTable().GetType(),
-                    new SamplesTable().GetType(),
-                    new DeliveryRequestTable().GetType(),
-                    new MappingsTable().GetType()
+                    new PhotoCaptionTable().GetType(),
+                    new Captions().GetType(),
                 }
             ).Wait();
 
@@ -36,16 +33,9 @@ namespace EtcPicApp.Data
         public async Task<IEnumerable<Jobs>> GetJobsAsync()
         {
             var jobs = await database.Table<JobsTable>().ToListAsync().ConfigureAwait(false);
-            return jobs.Select(JobsTable.ToJob).ToList();
+            return jobs.Select(JobsTable.ToModel).ToList();
         }
         
-        public async Task<int> GetLastJobIdAsync()
-        {
-            var jobs = await database.Table<JobsTable>().ToListAsync().ConfigureAwait(false);
-            var lastJob = jobs.OrderByDescending(x => x.JobId).FirstOrDefault();
-            return lastJob?.JobId ?? 0;
-        }
-
         public async Task<int> InsertAllAsync<T>(List<T> jobs)
         {
             return await database.InsertAllAsync(jobs, true);
@@ -67,75 +57,53 @@ namespace EtcPicApp.Data
             return await database.DeleteAsync<T>(value);
         }
 
-        public async Task<int> InsertOrReplaceAsync<T>(T value) where T : BaseTable
+        public async Task<int> InsertAsync<T>(T value) where T : BaseTable
         {
-            return await database.InsertOrReplaceAsync(value);
+            await database.InsertAsync(value);
+            return value.Id;
+
         }
 
-        public async Task<IEnumerable<Materials>> GetMaterialsAsync(int jobId)
+        public async Task<int> UpdateAsync<T>(T value) where T : BaseTable
         {
-            var materialsTable = await database.Table<MaterialsTable>().Where(x => x.JobId == jobId).ToListAsync();
-            return materialsTable.ToMaterials();
+            return await database.UpdateAsync(value);
         }
 
-        public async Task<IEnumerable<Samples>> GetSamplesAsync(int materialId)
+        //public async Task<IEnumerable<Materials>> GetMaterialsAsync(int jobId)
+        //{
+        //    var materialsTable = await database.Table<MaterialsTable>().Where(x => x.JobId == jobId).ToListAsync();
+        //    return materialsTable.ToMaterials();
+        //}
+
+
+
+        public async Task<IEnumerable<Captions>> GetAllCaptionsAsync()
         {
-            var samplesTable = await database.Table<SamplesTable>().Where(x => x.MaterialId == materialId).ToListAsync();
-            return samplesTable.ToSamples();
+            var captions = await database.Table<CaptionsTable>().ToListAsync();
+            return captions.Select(CaptionsTable.ToModel).ToList();
         }
 
-        public async Task<long> GetLastSampleIdAsync()
-        {
-            var samples = await database.Table<SamplesTable>().ToListAsync().ConfigureAwait(false);
-            var lastSample = samples.OrderByDescending(x => x.Id).FirstOrDefault();
-            return  lastSample?.Id ?? 0;
-        }
-
-        public async Task<int> GetLastMaterialIdAsync()
-        {
-            var materials = await database.Table<MaterialsTable>().ToListAsync().ConfigureAwait(false);
-            var lastMaterial = materials.OrderByDescending(x => x.Id).FirstOrDefault();
-            return lastMaterial?.Id ?? 0;
-        }
-
-        public async Task<IEnumerable<Mapping>> GetMappingsAsync()
-        {
-            var mappings = await database.Table<MappingsTable>().ToListAsync().ConfigureAwait(false);
-            return mappings.ToMappingModel();
-        }
-
-        public async Task<IEnumerable<Materials>> GetPostMaterialsAsync()
-        {
-            var result = database.Table<MaterialsTable>().Where(x => x.IsNew).ToListAsync().Result;
-            var materials = result.ToMaterials().ToList();
-            foreach (var material in materials)
-            {
-                var st = await database.Table<SamplesTable>().Where(x => x.MaterialId == material.Id).ToListAsync();
+        //public async Task<IEnumerable<Materials>> GetPostMaterialsAsync()
+        //{
+        //    var result = database.Table<MaterialsTable>().Where(x => x.IsNew).ToListAsync().Result;
+        //    var materials = result.ToMaterials().ToList();
+        //    foreach (var material in materials)
+        //    {
+        //        var st = await database.Table<SamplesTable>().Where(x => x.MaterialId == material.Id).ToListAsync();
                     
-                material.Samples = st.ToSamples().ToList();
-            }
-            return materials;
-        }
+        //        material.Samples = st.ToSamples().ToList();
+        //    }
+        //    return materials;
+        //}
 
-        public async Task<IEnumerable<Materials>> GetPutMaterialsAsync()
-        {
-            var result = await database.Table<MaterialsTable>().Where(x => x.IsNew == false && x.IsLocal)
-                .ToListAsync()
-                .ConfigureAwait(false);
-            return result.ToMaterials();
-        }
+        //public async Task<IEnumerable<Materials>> GetPutMaterialsAsync()
+        //{
+        //    var result = await database.Table<MaterialsTable>().Where(x => x.IsNew == false && x.IsLocal)
+        //        .ToListAsync()
+        //        .ConfigureAwait(false);
+        //    return result.ToMaterials();
+        //}
 
-        public async Task<IEnumerable<Samples>> GetPostSamplesAsync()
-        {
-            var result = await database.Table<SamplesTable>().Where(x => x.IsNew).ToListAsync();
-            return result.ToSamples();
-        }
-
-        public async Task<IEnumerable<Samples>> GetPutSamplesAsync()
-        {
-            var result = await database.Table<SamplesTable>().Where(x => !x.IsNew && x.IsLocal).ToListAsync();
-            return result.ToSamples();
-        }
 
         public async Task<int> ExecuteScalar(string query)
         {
@@ -148,40 +116,28 @@ namespace EtcPicApp.Data
             database.CreateTableAsync<JobsTable>().Wait();
         }
 
-        public void DropAndRecreateMaterials()
+        public void DropAndRecreateCaptions()
         {
-            database.DropTableAsync<MaterialsTable>().Wait();
-            database.CreateTableAsync<MaterialsTable>().Wait();
+            database.DropTableAsync<CaptionsTable>().Wait();
+            database.CreateTableAsync<CaptionsTable>().Wait();
         }
 
-        public void DropAndRecreateSamples()
+        public async Task<IEnumerable<PhotoCaption>> GetAllPhotoCaptionsAsync()
         {
-            database.DropTableAsync<SamplesTable>().Wait();
-            database.CreateTableAsync<SamplesTable>().Wait();
+            var photoCaptions = await database.Table<PhotoCaptionTable>().ToListAsync().ConfigureAwait(false);
+            return photoCaptions.Select(x => x.ToModel()).ToList();
         }
 
-
-        public void DropAndRecreateMappings()
+        public async Task<IEnumerable<PhotoCaption>> GetPhotoCaptionsAsync(int jobId)
         {
-            database.DropTableAsync<MappingsTable>().Wait();
-            database.CreateTableAsync<MappingsTable>().Wait();
+            var photoCaptions = await database.Table<PhotoCaptionTable>().Where(x => x.JobId == jobId).ToListAsync();
+            return photoCaptions.Select(x => x.ToModel()).ToList();
         }
 
-        public async Task AddDeliveryAsync(DeliveryRequestTable delivery)
+        public async Task<PhotoCaption> GetPhotoCaptionAsync(int id)
         {
-            await database.InsertOrReplaceAsync(delivery);
-        }
-
-        public void DropAndRecreateDeliveries()
-        {
-            database.DropTableAsync<DeliveryRequestTable>().Wait();
-            database.CreateTableAsync<DeliveryRequestTable>().Wait();
-        }
-
-        public async Task<IEnumerable<DeliveryRequest>> GetDeliveriesAsync()
-        {
-            var result = await database.Table<DeliveryRequestTable>().ToListAsync().ConfigureAwait(false);
-            return result.ToDeliveriesModel();
+            var photoCaption = await database.Table<PhotoCaptionTable>().FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+            return photoCaption.ToModel();
         }
     }
 }

@@ -9,7 +9,6 @@ namespace EtcPicApp.Models.Jobs
         public Client Client { get; set; }
         public string FacilityName { get; set; }
         public string FacilityAddress { get; set; }
-        public JobStatus Status { get; set; }
 
         public static JobsTable ToJobsTable(Jobs job)
         {
@@ -19,7 +18,6 @@ namespace EtcPicApp.Models.Jobs
                 FacilityAddress = job.FacilityAddress,
                 FacilityName = job.FacilityName,
                 JobId = job.JobId,
-                Status = job.Status?.Status
             };
         }
     }

@@ -173,15 +173,8 @@ namespace EtcPicApp.Services.General
             _mappings.Add(typeof(MainViewModel), typeof(MainView));
             _mappings.Add(typeof(MenuViewModel), typeof(MenuView));
             _mappings.Add(typeof(JobListViewModel), typeof(JobListView));
-            _mappings.Add(typeof(MaterialListViewModel), typeof(MaterialListView));
-            _mappings.Add(typeof(SampleListViewModel), typeof(SampleListView));
-            _mappings.Add(typeof(MaterialDetailViewModel), typeof(MaterialDetailView));
-            _mappings.Add(typeof(SampleDetailViewModel), typeof(SampleDetailView));
-            _mappings.Add(typeof(RoomsViewModel), typeof(RoomsView));
-            _mappings.Add(typeof(DeliveriesViewModel), typeof(DeliveriesView));
-            _mappings.Add(typeof(HistoryListViewModel), typeof(HistoryListView));
-            _mappings.Add(typeof(HistoryDetailViewModel), typeof(HistoryDetailView));
-            _mappings.Add(typeof(ReportViewModel), typeof(ReportView));
+            _mappings.Add(typeof(PhotoListViewModel), typeof(PhotoListView));
+            _mappings.Add(typeof(PhotoDetailViewModel), typeof(PhotoDetailView));
         }
     }
 }
