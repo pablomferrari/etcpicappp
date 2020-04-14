@@ -37,7 +37,7 @@ namespace EtcPicApp.Services.Data
             }
             var builder = new UriBuilder(ApiConstants.BaseApiUrl)
             {
-                Path = ApiConstants.EtcJobs
+                Path = ApiConstants.Jobs
             };
             var jobs = await _genericRepository.GetAsync<List<Jobs>>(builder.ToString());
             try

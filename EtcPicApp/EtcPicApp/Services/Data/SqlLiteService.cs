@@ -15,21 +15,6 @@ namespace EtcPicApp.Services.Data
     {
         public async Task<IEnumerable<Jobs>> GetJobsAsync()
         {
-#if DEBUG
-            var list = new List<Jobs>();
-            list.Add(new Jobs
-            {
-                Client = new Models.Clients.Client
-                {
-                    Id = 1,
-                    Name = "Test Client"
-                },
-                FacilityAddress = "123 Main St",
-                FacilityName = "Test facility",
-                JobId = 1234
-            });
-            return list;
-#endif
             return await Database.GetJobsAsync().ConfigureAwait(false);
         }
 
@@ -46,14 +31,13 @@ namespace EtcPicApp.Services.Data
 
         public async Task<IEnumerable<Captions>> GetAllCaptionsAsync()
         {
-#if DEBUG
-            var caption = new Captions { Caption = "Test", Id = 1, IsRequired = true, ServiceId = 1 };
-            return new List<Captions> { caption };
-#endif
             return await Database.GetAllCaptionsAsync().ConfigureAwait(false);
         }
 
-
+        public async Task<IEnumerable<Captions>> GetCaptionsByServiceAsync(int serviceId)
+        {
+            return await Database.GetCaptionByServiceAsync(serviceId).ConfigureAwait(false);
+        }
 
 
         public async Task<int> DeleteAsync<T>(int id)

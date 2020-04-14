@@ -15,7 +15,7 @@ namespace EtcPicApp.Extensions
             {
                 ServiceId = x.ServiceId,
                 Caption = x.Caption,
-                IsRequired = x.IsRequired
+                Required = x.Required
             });
         }
 

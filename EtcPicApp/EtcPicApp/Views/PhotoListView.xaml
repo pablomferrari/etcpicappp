@@ -17,8 +17,8 @@
     <StackLayout>
         <Grid Padding="10" BackgroundColor="{StaticResource PrimaryLight}">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="45" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -46,6 +46,25 @@
             IsVisible="{Binding IsBusy}"
             VerticalOptions="CenterAndExpand"
             Color="{StaticResource Accent}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource H1}"
+                Text="{Binding RequiredCaptions}" />
+            <Button
+                Grid.Column="1"
+                Command="{Binding ViewCaptionsCommand}"
+                Style="{StaticResource RegularButton}"
+                Text="View Captions" />
+        </Grid>
 
         <ListView
             x:Name="ListView"

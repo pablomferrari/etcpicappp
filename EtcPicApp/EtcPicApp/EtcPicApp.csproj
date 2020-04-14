@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Authors>Pablo Ferrari</Authors>
-    <Company>ETL</Company>
-    <PackageId>com.etl.etlapp</PackageId>
-    <Product>ETLApp</Product>
-    <FileVersion>3.2.0.0</FileVersion>
+    <Company>ETC</Company>
+    <PackageId>com.etc.picapp</PackageId>
+    <Product>ETCPicApp</Product>
+    <FileVersion>3.0.0.0</FileVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 

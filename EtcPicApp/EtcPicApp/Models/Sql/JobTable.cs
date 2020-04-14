@@ -9,6 +9,7 @@ namespace EtcPicApp.Models.Sql
         public string Client { get; set; }
         public string FacilityName { get; set; }
         public string FacilityAddress { get; set; }
+        public int ServiceId { get; set; }
 
         public static Jobs.Jobs ToModel(JobsTable jobsTable)
         {
@@ -18,6 +19,7 @@ namespace EtcPicApp.Models.Sql
                 FacilityAddress = jobsTable.FacilityAddress,
                 FacilityName = jobsTable.FacilityName,
                 JobId = jobsTable.JobId,
+                ServiceId = jobsTable.ServiceId
             };
         }
     }

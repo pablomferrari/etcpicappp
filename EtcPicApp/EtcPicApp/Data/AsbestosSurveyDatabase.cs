@@ -41,6 +41,12 @@ namespace EtcPicApp.Data
             return await database.InsertAllAsync(jobs, true);
         }
 
+        public async Task<IEnumerable<Captions>> GetCaptionByServiceAsync(int serviceId)
+        {
+            var captions = await database.Table<CaptionsTable>().ToListAsync();
+            return captions.Where(x => x.ServiceId == serviceId).Select(CaptionsTable.ToModel).ToList();
+        }
+
         public async Task<int> InsertOrReplaceAllAsync<T>(List<T> jobs)
         {
             var updated = 0;

@@ -36,11 +36,11 @@ namespace EtcPicApp.Services.Data
             
             try
             {
-                var postPictureStreamCaptions = (await _dataService.GetPostPhotoStreamCaptions()).ToList();
-                var putPictureStreamCaptions = (await _dataService.GetPutPhotoStreamCaptions()).ToList();
+                //var postPictureStreamCaptions = (await _dataService.GetPostPhotoStreamCaptions()).ToList();
+                //var putPictureStreamCaptions = (await _dataService.GetPutPhotoStreamCaptions()).ToList();
 
-                await _apiService.PostPhotoCaptionsAsync(postPictureStreamCaptions);
-                await _apiService.PutPhotoCaptionsAsync(putPictureStreamCaptions);
+                //await _apiService.PostPhotoCaptionsAsync(postPictureStreamCaptions);
+                //await _apiService.PutPhotoCaptionsAsync(putPictureStreamCaptions);
                 await SyncJobsAsync();
                 await SyncCaptionsAsync();
             }

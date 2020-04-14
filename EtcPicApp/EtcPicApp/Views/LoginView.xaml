@@ -1,62 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
-             x:Class="EtcPicApp.Views.LoginView"
-             utility1:ViewModelLocator.AutoWireViewModel="True">
+<ContentPage
+    x:Class="EtcPicApp.Views.LoginView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
+    utility1:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition x:Name="LoginRow"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition x:Name="LoginRow" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition x:Name="LoginColumn"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="LoginColumn" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
 
 
-        <AbsoluteLayout 
-            x:Name="AbsoluteLayout" 
-                        HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1">
+        <AbsoluteLayout
+            x:Name="AbsoluteLayout"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalOptions="FillAndExpand">
 
-            <Frame AbsoluteLayout.LayoutFlags="SizeProportional" 
-                        AbsoluteLayout.LayoutBounds="0.5,0.5,1,1" 
-                        BackgroundColor="{StaticResource WindowBackground}" 
-                        HasShadow="true"
-                        CornerRadius="10" Margin="0, 25, 0, 25">
-                <StackLayout Margin="0, 30">
-                    <Label Text="Sign in" 
-                           Margin="10"
-                           TextColor="{StaticResource PrimaryText}"
-                           FontSize="Large">
-                    </Label>
-
-                    <Entry 
+            <Frame
+                Margin="0,25,0,25"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
+                AbsoluteLayout.LayoutFlags="SizeProportional"
+                BackgroundColor="{StaticResource WindowBackground}"
+                CornerRadius="10"
+                HasShadow="true">
+                <StackLayout Margin="0,30">
+                    <Label
                         Margin="10"
-                        TextColor="{StaticResource PrimaryText}"
-                        Placeholder="User name" Text="{Binding UserName}"/>
-                    
-                    <Entry Keyboard="Numeric" IsPassword="True" 
-                           Margin="10"
-                           TextColor="{StaticResource PrimaryText}"
-                           Placeholder="Password" 
-                           Text="{Binding Password}"/>
-                    <ActivityIndicator 
-                        IsVisible="{Binding IsBusy}" 
-                        IsRunning="{Binding IsBusy}" Color="{StaticResource Accent}"/>
-                    <Button IsVisible="{Binding NotBusy}" Style="{StaticResource LargeButton}"  
-                            Text="Sign in" Command="{Binding LoginCommand}"></Button>
+                        FontSize="Large"
+                        Text="Sign in"
+                        TextColor="{StaticResource PrimaryText}" />
+
+                    <Entry
+                        Margin="10"
+                        Placeholder="User name"
+                        Text="{Binding UserName}"
+                        TextColor="{StaticResource PrimaryText}" />
+
+                    <Entry
+                        Margin="10"
+                        IsPassword="True"
+                        Keyboard="Numeric"
+                        Placeholder="Password"
+                        Text="{Binding Password}"
+                        TextColor="{StaticResource PrimaryText}" />
+                    <ActivityIndicator
+                        IsRunning="{Binding IsBusy}"
+                        IsVisible="{Binding IsBusy}"
+                        Color="{StaticResource Accent}" />
+                    <Button
+                        Command="{Binding LoginCommand}"
+                        IsVisible="{Binding NotBusy}"
+                        Style="{StaticResource LargeButton}"
+                        Text="Sign in" />
                 </StackLayout>
-                
+
             </Frame>
-            <Frame  AbsoluteLayout.LayoutFlags="PositionProportional" 
-                    Padding="0,0,0,0" 
-                    BackgroundColor="{StaticResource WindowBackground}" 
-                    AbsoluteLayout.LayoutBounds="0.5,0.1,75,75" VerticalOptions="Fill" HorizontalOptions="Fill">
-                <Image Source="logo.png" VerticalOptions="Start" Grid.Row="0" Grid.RowSpan="2"></Image>
+            <Frame
+                Padding="0,0,0,0"
+                AbsoluteLayout.LayoutBounds="0.5,0.1,75,75"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="{StaticResource WindowBackground}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Source="logo.png"
+                    VerticalOptions="Start" />
             </Frame>
         </AbsoluteLayout>
     </Grid>

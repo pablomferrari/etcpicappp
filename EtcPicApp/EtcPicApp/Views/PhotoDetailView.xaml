@@ -11,27 +11,25 @@
         <ToolbarItem Command="{Binding OnSaveChangesCommand}" Text="Save" />
     </ContentPage.ToolbarItems>
     <StackLayout Padding="10" BackgroundColor="{StaticResource WindowBackground}">
-        <Image Source="{Binding PhotoCaption.Source}" HeightRequest="300"/>
-        <Label Style="{StaticResource FormLabelStyle}" Text="Material" />
+        <Image HeightRequest="300" Source="{Binding PhotoCaption.Source}" />
+        <Label Style="{StaticResource FormLabelStyle}" Text="Caption" />
         <autocomplete:SfAutoComplete
-                        AutoCompleteMode="Suggest"
-                        DataSource="{Binding Captions}"
-                        DropDownCornerRadius="15"
-                        DropDownItemHeight="50"
-                        HeightRequest="50"
-                        ShowSuggestionsOnFocus="true"
-                        Text="{Binding PhotoCaption.Caption}"
-                        TextColor="{StaticResource PrimaryText}"
-                        TextSize="18">
-        </autocomplete:SfAutoComplete>
+            AutoCompleteMode="Suggest"
+            DataSource="{Binding Captions}"
+            DropDownCornerRadius="15"
+            DropDownItemHeight="50"
+            HeightRequest="50"
+            ShowSuggestionsOnFocus="true"
+            Text="{Binding PhotoCaption.Caption}"
+            TextColor="{StaticResource PrimaryText}"
+            TextSize="18" />
         <Label Style="{StaticResource FormLabelStyle}" Text="{Binding PhotoCaption.Caption, Mode=OneWay}" />
         <Button
-                        x:Name="SaveMaterial"
-                        Command="{Binding OnSaveChangesCommand}"
-                        HorizontalOptions="FillAndExpand"
-                        Style="{StaticResource SubmitButton}"
-                        Text="Add"
-                        VerticalOptions="Start" />
-
+            x:Name="SaveCaption"
+            Command="{Binding OnSaveChangesCommand}"
+            HorizontalOptions="FillAndExpand"
+            Style="{StaticResource SubmitButton}"
+            Text="Add"
+            VerticalOptions="Start" />
     </StackLayout>
 </ContentPage>

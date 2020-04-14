@@ -10,10 +10,8 @@
 
 
         public const string AuthenticateEtcLogin = "api/authentication/etclogin";
-        public const string AuthenticateClientLogin = "api/authentication/clientlogin";
-        public const string EtcJobs = "api/asbestossurvey/etcjobs";
-        public const string Jobs = "api/jobs/all";
-        public const string Captions = "api/captions";
+        public const string Jobs = "api/jobs/picapp";
+        public const string Captions = "api/servicecaptions";
         public const string PostPhotoStreamCaptions = "api/photostreamcaptions/post";
         public const string PutPhotoStreamCaptions = "api/photostreamcaptions/put";
     }

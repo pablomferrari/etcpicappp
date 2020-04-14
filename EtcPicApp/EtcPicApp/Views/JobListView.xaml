@@ -6,7 +6,7 @@
     xmlns:behaviors="clr-namespace:EtcPicApp.Behaviors;assembly=EtcPicApp"
     xmlns:utility1="clr-namespace:EtcPicApp.Utility;assembly=EtcPicApp"
     x:Name="Jobs"
-    Title="ETL App 3.2.0"
+    Title="ETC PicApp"
     utility1:ViewModelLocator.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
         <ToolbarItem

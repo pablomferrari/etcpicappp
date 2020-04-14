@@ -6,7 +6,7 @@ namespace EtcPicApp.Models.Sql
     {
         public int ServiceId { get; set; }
         public string Caption { get; set; }
-        public bool IsRequired { get; set; }
+        public bool Required { get; set; }
 
         public static Captions.Captions ToModel(CaptionsTable table)
         {
@@ -15,8 +15,7 @@ namespace EtcPicApp.Models.Sql
                 Id = table.Id,
                 ServiceId = table.ServiceId,
                 Caption = table.Caption,
-                IsRequired = table.IsRequired
-
+                Required = table.Required
             };
         }
     }

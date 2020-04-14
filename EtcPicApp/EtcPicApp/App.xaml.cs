@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akavache;
 using EtcPicApp.Bootstrap;
+using EtcPicApp.Contracts.Services.Data;
 using EtcPicApp.Contracts.Services.General;
 using EtcPicApp.Data;
 using Microsoft.AppCenter;
@@ -36,7 +37,7 @@ namespace EtcPicApp
             InitializeApp();
             InitializeNavigation().ConfigureAwait(false);
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("OTcwOUAzMTM2MmUzMjJlMzBCRkpoaGVKelJVTGxXNUxsNG16VnFWamIvUmp2YitSVi9hM0VuVDdGQy9JPQ==");
-		    BlobCache.ApplicationName = "ETC_ETL_Sample_Submission";
+		    BlobCache.ApplicationName = "ETC_Pic_App";
 			AppCenter.Start("android=0a4e5c88-3ad2-405b-8ace-b3e6ce240acc;ios=ab14d4ae-8b58-4b34-8480-2031ab6da8ff", 
                 typeof(Analytics), typeof(Crashes), typeof(Distribute), typeof(Push));
         }
@@ -45,7 +46,7 @@ namespace EtcPicApp
 	    {
 	        var navigationService = AppContainer.Resolve<INavigationService>();
 	        await navigationService.InitializeAsync();
-	    }
+        }
 
 	    private void InitializeApp()
 	    {

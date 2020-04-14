@@ -8,10 +8,10 @@ using EtcPicApp.Constants;
 using EtcPicApp.Contracts.Services.Data;
 using EtcPicApp.Contracts.Services.General;
 using EtcPicApp.Extensions;
-using EtcPicApp.Models.Captions;
 using EtcPicApp.Models.PhotoCaption;
 using EtcPicApp.Models.Sql;
 using EtcPicApp.ViewModels.Base;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace EtcPicApp.ViewModels
@@ -40,7 +40,16 @@ namespace EtcPicApp.ViewModels
             }
         }
         #endregion
-        public IEnumerable<Captions> Captions;
+        private ObservableCollection<string> _captions;
+        public ObservableCollection<string> Captions
+        {
+            get => _captions;
+            set
+            {
+                _captions = value;
+                OnPropertyChanged();
+            }
+        }
 
         private readonly ISqlLiteService _dataService;
         private readonly ISettingsService _settingsService;
@@ -68,15 +77,18 @@ namespace EtcPicApp.ViewModels
         public override async Task InitializeAsync(object data)
         {
             IsBusy = true;
-            Captions = await _dataService.GetAllCaptionsAsync();
+
+            var id = (int) data;
             try
             {
-                var id = (int)data;
                 PhotoCaption = await _dataService.GetPhotoCaptionAsync(id);
+                var job = (await _dataService.GetJobsAsync()).FirstOrDefault(x => x.JobId == PhotoCaption.JobId);
+                var captionModels = await _dataService.GetCaptionsByServiceAsync(job?.ServiceId ?? 0);
+                Captions = captionModels.Select(x => x.Caption).ToObservableCollection();
             }
             catch(Exception ex)
             {
-                var x = ex;
+                Crashes.TrackError(ex);
             }
             
             IsBusy = false;

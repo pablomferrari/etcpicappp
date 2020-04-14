@@ -18,6 +18,7 @@ namespace EtcPicApp.Contracts.Services.Data
         Task<IEnumerable<PhotoCaption>> GetPhotoCaptionsAsync(int jobId);
         Task<IEnumerable<PhotoStreamCaption>> GetPhotoStreamCaptionsAsync(int jobId);
         Task<IEnumerable<Captions>> GetAllCaptionsAsync();
+        Task<IEnumerable<Captions>> GetCaptionsByServiceAsync(int serviceId);
         Task<int> DeleteAsync<T>(int id);
         Task<IEnumerable<PhotoStreamCaption>> GetPostPhotoStreamCaptions();
         Task<IEnumerable<PhotoStreamCaption>> GetPutPhotoStreamCaptions();
