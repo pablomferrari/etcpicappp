@@ -3,9 +3,11 @@
     public static class ApiConstants
     {
 #if DEBUG
-        public const string BaseApiUrl = "https://surveyapi.conveyor.cloud/"; 
+        public const string BaseApiUrl = "https://surveyapi.conveyor.cloud/";
+        //public const string BaseApiUrl = "http://labapi.2etc.com/";
 #else
         public const string BaseApiUrl = "http://labapi.2etc.com/";
+
 #endif
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -144,18 +145,30 @@ namespace EtcPicApp.ViewModels
         public ICommand GetFromGalleryCommand => new Command(GetPhotoCommand);
         public ICommand ReportCommand => new Command(GenerateReport);
 
-        public ICommand ViewCaptionsCommand => new Command(ViewCaptions);
 
-        private async void ViewCaptions(object obj)
+        private async Task<IEnumerable<string>> CalculateRemainingCaptions()
         {
-            var data = await _dataService.GetCaptionsByServiceAsync(Job?.ServiceId ?? 0);
-            var text = data.OrderBy(x => x.Caption)
-                .Select(x => $"{x.Caption} {(x.Required ? "(Required)" : "")}").ToList();
-            var final = string.Join(Environment.NewLine, text);
-            await _dialogService.ShowDialog(
-                final,
-                "Captions",
-                "Got it");
+            var defaultCaptions = await _dataService.GetCaptionsByServiceAsync(Job?.ServiceId ?? 0);
+            var takenCaptions = await _dataService.GetPhotoCaptionsAsync(Job.JobId);
+            var formattedDefault = defaultCaptions.Where(c => c.Required).Select(x => x.Caption.Trim().ToLower());
+            var formattedTaken = takenCaptions.Select(x => x.Caption.Trim().ToLower());
+            var missing = formattedDefault.Except(formattedTaken);
+            return missing;
+        }
+        private async Task<bool> Verify()
+        {
+            var missing = await CalculateRemainingCaptions();
+            return !missing.Any();
+        }
+
+        private async Task UpdateCaptionDescription()
+        {
+            var missing = await CalculateRemainingCaptions();
+            RequiredCaptions = "Remaining required pictures: " + missing.Count() + Environment.NewLine;
+            if(missing.Count() < 5)
+            {
+                RequiredCaptions += string.Join(Environment.NewLine, missing);
+            }
         }
 
 
@@ -164,6 +177,13 @@ namespace EtcPicApp.ViewModels
 
         private async void GenerateReport(object obj)
         {
+            if (!(await Verify()))
+            {
+                await _dialogService.ShowDialog(
+                "Captions",
+                "Seems that you are missing some pictures!",
+                "Ok");
+            }
             IsBusy = true;
             var images = await _dataService.GetPhotoStreamCaptionsAsync(Job.JobId);
             
@@ -270,6 +290,7 @@ namespace EtcPicApp.ViewModels
         {
             await DeletePhotoCaption((PhotoStreamCaption)data);
             await LoadPhotos();
+            await UpdateCaptionDescription();
         });
 
         public ICommand ViewPhotoCaptionCommand => new Command<PhotoStreamCaption>(OnViewPhotoCaption);
@@ -295,24 +316,17 @@ namespace EtcPicApp.ViewModels
 
         private async void AddPhotoCommand()
         {
-            try
-            {
-                await CrossMedia.Current.Initialize();
+            await CrossMedia.Current.Initialize();
 
-                var status = CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported;
-                var photo = await CrossMedia.Current.TakePhotoAsync(
-                    new Plugin.Media.Abstractions.StoreCameraMediaOptions() { 
-                        PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium });
-
-                if (photo != null)
+            var photo = await CrossMedia.Current.TakePhotoAsync(
+                new Plugin.Media.Abstractions.StoreCameraMediaOptions()
                 {
-                    await AddPhoto(photo.Path);
-                }
-              
-            }
-            catch (Exception ex)
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+
+            if (photo != null)
             {
-                Console.WriteLine(ex.Message);
+                await AddPhoto(photo.Path);
             }
         }
 
@@ -330,25 +344,17 @@ namespace EtcPicApp.ViewModels
 
         private async void GetPhotoCommand()
         {
-            try
-            {
-                await CrossMedia.Current.Initialize();
+            await CrossMedia.Current.Initialize();
 
-                var status = CrossMedia.Current.IsPickPhotoSupported;
-                var photo = await CrossMedia.Current.PickPhotoAsync(
-                    new Plugin.Media.Abstractions.PickMediaOptions() { 
-                        PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
-                    });
-
-                if (photo != null)
+            var photo = await CrossMedia.Current.PickPhotoAsync(
+                new Plugin.Media.Abstractions.PickMediaOptions()
                 {
-                    await AddPhoto(photo.Path);
-                }
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
 
-            }
-            catch (Exception ex)
+            if (photo != null)
             {
-                Console.WriteLine(ex.Message);
+                await AddPhoto(photo.Path);
             }
         }
 
@@ -379,9 +385,6 @@ namespace EtcPicApp.ViewModels
             Header = string.Concat(Job.JobId, " ", Job.Client?.Name);
             Address = Job.FacilityAddress;
             await LoadPhotos(false);
-            var pc = await _dataService.GetAllCaptionsAsync();
-            var captionCount = pc.Count(x => x.ServiceId == Job.ServiceId && x.Required);
-            RequiredCaptions = $"Required pictures: {captionCount}";
             IsBusy = false;
         }
         private async Task LoadPhotos(bool forceRefresh = false)
@@ -389,6 +392,7 @@ namespace EtcPicApp.ViewModels
             PhotoCaptions = (await _dataService.GetPhotoStreamCaptionsAsync(Job.JobId)).ToObservableCollection();
             FilteredPhotoCaptions = PhotoCaptions ?? new ObservableCollection<PhotoStreamCaption>();
             FilterChanged(_search);
+            await UpdateCaptionDescription();
         }
         #endregion
     }

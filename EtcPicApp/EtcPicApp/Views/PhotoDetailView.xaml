@@ -22,8 +22,7 @@
             ShowSuggestionsOnFocus="true"
             Text="{Binding PhotoCaption.Caption}"
             TextColor="{StaticResource PrimaryText}"
-            TextSize="18" />
-        <Label Style="{StaticResource FormLabelStyle}" Text="{Binding PhotoCaption.Caption, Mode=OneWay}" />
+            TextSize="18" />       
         <Button
             x:Name="SaveCaption"
             Command="{Binding OnSaveChangesCommand}"

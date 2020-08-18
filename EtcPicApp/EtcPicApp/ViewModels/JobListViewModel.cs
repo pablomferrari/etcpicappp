@@ -14,6 +14,7 @@ using EtcPicApp.Services.Data;
 using EtcPicApp.ViewModels.Base;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Distribute;
 using Xamarin.Forms;
 
 namespace EtcPicApp.ViewModels
@@ -101,17 +102,16 @@ namespace EtcPicApp.ViewModels
                          "OK");
                     return;
                 }
-
                 IsBusy = true;
                 await _synchronizationService.SynchronizeData();
                 await LoadJobs();
                 IsBusy = false;
                 await _dialogService.ShowDialog(
-                    "Your data has been submitted. All your data should be available by the office staff now.",
-                    "Submit",
+                    "Jobs and captions have been updated",
+                    "Update",
                     "OK");
 
-                Analytics.TrackEvent("Data Submitted", new Dictionary<string, string> {
+                Analytics.TrackEvent("Data Updated", new Dictionary<string, string> {
                     { _settingsService.UserNameSetting, DateTime.Now.ToString("G") }
                 });
             }

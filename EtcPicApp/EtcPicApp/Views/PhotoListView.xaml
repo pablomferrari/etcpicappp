@@ -18,8 +18,8 @@
         <Grid Padding="10" BackgroundColor="{StaticResource PrimaryLight}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45" />
-                <RowDefinition Height="45" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="55" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -27,13 +27,13 @@
             <Label
                 Grid.Row="0"
                 HorizontalOptions="CenterAndExpand"
-                Style="{StaticResource H1}"
+                Style="{StaticResource H2}"
                 Text="{Binding Header}" />
             <Label
                 Grid.Row="1"
                 HorizontalOptions="CenterAndExpand"
-                Style="{StaticResource H2}"
-                Text="{Binding Address}" />
+                Style="{StaticResource H1}"
+                Text="{Binding RequiredCaptions}" />
             <Entry
                 Grid.Row="2"
                 Placeholder="Search..."
@@ -46,30 +46,11 @@
             IsVisible="{Binding IsBusy}"
             VerticalOptions="CenterAndExpand"
             Color="{StaticResource Accent}" />
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="0"
-                HorizontalOptions="CenterAndExpand"
-                Style="{StaticResource H1}"
-                Text="{Binding RequiredCaptions}" />
-            <Button
-                Grid.Column="1"
-                Command="{Binding ViewCaptionsCommand}"
-                Style="{StaticResource RegularButton}"
-                Text="View Captions" />
-        </Grid>
-
         <ListView
             x:Name="ListView"
             CachingStrategy="RecycleElement"
             IsPullToRefreshEnabled="false"
+            VerticalOptions="FillAndExpand"
             ItemsSource="{Binding FilteredPhotoCaptions}"
             RowHeight="75"
             SelectionMode="None"

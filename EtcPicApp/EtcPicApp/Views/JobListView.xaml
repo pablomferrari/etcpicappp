@@ -12,7 +12,7 @@
         <ToolbarItem
             Command="{Binding SubmitCommand}"
             Order="Primary"
-            Text="Sync Data" />
+            Text="Update Data" />
     </ContentPage.ToolbarItems>
     <StackLayout HorizontalOptions="FillAndExpand">
         <Grid Padding="10" BackgroundColor="{StaticResource PrimaryLight}">
